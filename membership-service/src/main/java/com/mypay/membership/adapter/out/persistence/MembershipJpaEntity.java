@@ -18,15 +18,10 @@ class MembershipJpaEntity {
     @Id
     @GeneratedValue
     private Long membershipId;
-
     private String name;
-
     private String address;
-
     private String email;
-
     private boolean valid;
-
     private boolean corp;
 
     public MembershipJpaEntity(
@@ -41,6 +36,14 @@ class MembershipJpaEntity {
         this.email = email;
         this.valid = valid;
         this.corp = corp;
+    }
+
+    public void update(MembershipJpaEntity source) {
+        this.name = source.name;
+        this.address = source.address;
+        this.email = source.email;
+        this.valid = source.valid;
+        this.corp = source.corp;
     }
 
     @Override
