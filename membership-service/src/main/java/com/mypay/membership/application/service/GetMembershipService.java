@@ -3,11 +3,11 @@ package com.mypay.membership.application.service;
 import com.mypay.membership.application.port.in.GetMembershipCommand;
 import com.mypay.membership.application.port.in.GetMembershipQuery;
 import com.mypay.membership.application.port.out.GetMembershipPort;
+import com.mypay.membership.common.Query;
 import com.mypay.membership.domain.Membership;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
+@Query
 @RequiredArgsConstructor
 public class GetMembershipService implements GetMembershipQuery {
 
