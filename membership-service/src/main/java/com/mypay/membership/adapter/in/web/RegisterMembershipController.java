@@ -2,7 +2,7 @@ package com.mypay.membership.adapter.in.web;
 
 import com.mypay.membership.application.port.in.RegisterMembershipCommand;
 import com.mypay.membership.application.port.in.RegisterMembershipUseCase;
-import com.mypay.membership.common.WebAdapter;
+import com.mypay.common.WebAdapter;
 import com.mypay.membership.domain.Membership;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

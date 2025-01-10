@@ -3,7 +3,7 @@ package com.mypay.membership.application.service;
 import com.mypay.membership.application.port.in.UpdateMembershipCommand;
 import com.mypay.membership.application.port.in.UpdateMembershipUseCase;
 import com.mypay.membership.application.port.out.UpdateMembershipPort;
-import com.mypay.membership.common.UseCase;
+import com.mypay.common.UseCase;
 import com.mypay.membership.domain.Membership;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
