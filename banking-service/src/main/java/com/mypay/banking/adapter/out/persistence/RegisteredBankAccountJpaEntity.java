@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class RegisteredBankAccountJpaEntity {
 
     @Id @GeneratedValue
-    private String id;
+    private Long id;
     private String membershipId;
     private String bankName;
     private String bankAccountNumber;

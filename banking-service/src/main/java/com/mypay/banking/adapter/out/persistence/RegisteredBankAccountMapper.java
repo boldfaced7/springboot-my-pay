@@ -9,7 +9,7 @@ public class RegisteredBankAccountMapper {
     ) {
         return RegisteredBankAccount.generate(
                 new RegisteredBankAccount.Id(
-                        registeredBankAccount.getId()),
+                        registeredBankAccount.getId()+""),
                 new RegisteredBankAccount.MembershipId(
                         registeredBankAccount.getMembershipId()),
                 new RegisteredBankAccount.BankName(
@@ -25,7 +25,6 @@ public class RegisteredBankAccountMapper {
             RegisteredBankAccount registeredBankAccount
     ) {
         return new RegisteredBankAccountJpaEntity(
-                registeredBankAccount.getId(),
                 registeredBankAccount.getMembershipId(),
                 registeredBankAccount.getBankName(),
                 registeredBankAccount.getBankAccountNumber(),
