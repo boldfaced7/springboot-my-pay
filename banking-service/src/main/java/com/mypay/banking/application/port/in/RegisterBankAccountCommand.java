@@ -1,6 +1,5 @@
 package com.mypay.banking.application.port.in;
 
-
 import com.mypay.common.SelfValidating;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

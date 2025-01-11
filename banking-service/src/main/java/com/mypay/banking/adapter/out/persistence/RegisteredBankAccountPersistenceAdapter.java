@@ -1,14 +1,17 @@
 package com.mypay.banking.adapter.out.persistence;
 
+import com.mypay.banking.application.port.out.GetRegisteredBankAccountPort;
 import com.mypay.banking.application.port.out.RegisterBankAccountPort;
 import com.mypay.banking.domain.RegisteredBankAccount;
 import com.mypay.common.PersistenceAdapter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class RegisterBankAccountPersistenceAdapter
-        implements RegisterBankAccountPort {
+public class RegisteredBankAccountPersistenceAdapter
+        implements RegisterBankAccountPort, GetRegisteredBankAccountPort {
 
     private final RegisteredBankAccountJpaRepository bankAccountRepository;
 
@@ -20,5 +23,13 @@ public class RegisterBankAccountPersistenceAdapter
                 = RegisteredBankAccountMapper.mapToJpaEntity(registeredBankAccount);
         RegisteredBankAccountJpaEntity saved = bankAccountRepository.save(source);
         return RegisteredBankAccountMapper.mapToDomain(saved);
+    }
+
+    @Override
+    public Optional<RegisteredBankAccount> findRegisteredBankAccountByMembershipId(
+            RegisteredBankAccount.MembershipId membershipId
+    ) {
+        return bankAccountRepository.findByMembershipId(membershipId.value())
+                .map(RegisteredBankAccountMapper::mapToDomain);
     }
 }
