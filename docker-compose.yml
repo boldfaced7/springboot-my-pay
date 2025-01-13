@@ -93,8 +93,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=mysqlpw
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
-  banking-service:
-    image: my-pay-banking-service:0.0.1-SNAPSHOT
+  bank-account-service:
+    image: my-pay-bank-account-service:0.0.1-SNAPSHOT
     networks:
       - mypay_network
     ports:
@@ -107,6 +107,25 @@ services:
 #      - AXON_SERIALIZER_EVENTS=jackson
 #      - AXON_SERIALIZER_MESSAGES=jackson
 #      - AXON_SERIALIZER_GENERAL=xstream
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/my_pay?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=mysqluser
+      - SPRING_DATASOURCE_PASSWORD=mysqlpw
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  firmbanking-service:
+    image: my-pay-firmbanking-service:0.0.1-SNAPSHOT
+    networks:
+      - mypay_network
+    ports:
+      - "8082:8080"
+    depends_on:
+      #      - axon-server
+      - mysql
+    environment:
+      #      - AXON_AXONSERVER_SERVERS=axon-server:8124
+      #      - AXON_SERIALIZER_EVENTS=jackson
+      #      - AXON_SERIALIZER_MESSAGES=jackson
+      #      - AXON_SERIALIZER_GENERAL=xstream
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/my_pay?useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=mysqluser
       - SPRING_DATASOURCE_PASSWORD=mysqlpw
