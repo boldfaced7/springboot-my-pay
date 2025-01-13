@@ -17,18 +17,15 @@ public class UpdateMembershipService implements UpdateMembershipUseCase {
 
     @Override
     public Membership updateMembership(UpdateMembershipCommand command) {
-        Membership membership = mapToDomain(command);
-        return updateMembershipPort.updateMembership(membership);
-    }
+        Membership.Id id = new Membership.Id(command.getMembershipId());
 
-    private Membership mapToDomain(UpdateMembershipCommand command) {
-        return Membership.generate(
-                new Membership.Id(command.getMembershipId()),
-                new Membership.Name(command.getName()),
-                new Membership.Email(command.getEmail()),
-                new Membership.Address(command.getAddress()),
-                new Membership.Valid(command.isValid()),
-                new Membership.Corp(command.isCorp())
-        );
+        return updateMembershipPort.findMembershipById(id)
+                .map(membership -> membership.update(
+                        new Membership.Name(command.getName()),
+                        new Membership.Email(command.getEmail()),
+                        new Membership.Address(command.getAddress())
+                ))
+                .map(updateMembershipPort::updateMembership)
+                .orElseThrow(IllegalArgumentException::new);
     }
 }

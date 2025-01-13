@@ -18,9 +18,10 @@ public class MembershipPersistenceAdapter
 
     @Override
     public Membership createMembership(Membership membership) {
-        MembershipJpaEntity source = MembershipMapper.mapToJpaEntity(membership);
-        MembershipJpaEntity saved = membershipJpaRepository.save(source);
-        return MembershipMapper.mapToDomain(saved);
+        return membership
+                .map(MembershipMapper::mapToJpaEntity)
+                .map(membershipJpaRepository::save)
+                .map(MembershipMapper::mapToDomain);
     }
 
     @Override
@@ -31,13 +32,9 @@ public class MembershipPersistenceAdapter
 
     @Override
     public Membership updateMembership(Membership membership) {
-        Long targetId = Long.parseLong(membership.getMembershipId());
-
-        MembershipJpaEntity target = membershipJpaRepository.findById(targetId)
-                .orElseThrow(IllegalArgumentException::new);
-        target.update(MembershipMapper.mapToJpaEntity(membership));
-
-        MembershipJpaEntity updated = membershipJpaRepository.save(target);
-        return MembershipMapper.mapToDomain(updated);
+        return membership
+                .map(MembershipMapper::mapToJpaEntity)
+                .map(membershipJpaRepository::save)
+                .map(MembershipMapper::mapToDomain);
     }
 }
