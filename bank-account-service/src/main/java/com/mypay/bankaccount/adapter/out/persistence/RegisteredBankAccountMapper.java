@@ -1,0 +1,34 @@
+package com.mypay.bankaccount.adapter.out.persistence;
+
+import com.mypay.bankaccount.domain.RegisteredBankAccount;
+
+public class RegisteredBankAccountMapper {
+
+    public static RegisteredBankAccount mapToDomain(
+            RegisteredBankAccountJpaEntity registeredBankAccount
+    ) {
+        return RegisteredBankAccount.generate(
+                new RegisteredBankAccount.Id(
+                        registeredBankAccount.getId()+""),
+                new RegisteredBankAccount.MembershipId(
+                        registeredBankAccount.getMembershipId()),
+                new RegisteredBankAccount.BankName(
+                        registeredBankAccount.getBankName()),
+                new RegisteredBankAccount.BankAccountNumber(
+                        registeredBankAccount.getBankAccountNumber()),
+                new RegisteredBankAccount.ValidLinkedStatus(
+                        registeredBankAccount.isValidLinkedStatus())
+        );
+    }
+
+    public static RegisteredBankAccountJpaEntity mapToJpaEntity(
+            RegisteredBankAccount registeredBankAccount
+    ) {
+        return new RegisteredBankAccountJpaEntity(
+                registeredBankAccount.getMembershipId(),
+                registeredBankAccount.getBankName(),
+                registeredBankAccount.getBankAccountNumber(),
+                registeredBankAccount.isValidLinkedStatus()
+        );
+    }
+}
