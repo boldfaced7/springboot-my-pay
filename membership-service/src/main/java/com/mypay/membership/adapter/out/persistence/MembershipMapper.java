@@ -5,7 +5,7 @@ import com.mypay.membership.domain.Membership;
 class MembershipMapper {
     public static Membership mapToDomain(MembershipJpaEntity membership) {
         return Membership.generate(
-                new Membership.Id(membership.getMembershipId()+""),
+                new Membership.Id(membership.getMembershipId().toString()),
                 new Membership.Name(membership.getName()),
                 new Membership.Email(membership.getEmail()),
                 new Membership.Address(membership.getAddress()),
@@ -16,11 +16,20 @@ class MembershipMapper {
 
     public static MembershipJpaEntity mapToJpaEntity(Membership membership) {
         return new MembershipJpaEntity(
+                parseId(membership.getMembershipId()),
                 membership.getName(),
                 membership.getEmail(),
                 membership.getAddress(),
                 membership.isValid(),
                 membership.isCorp()
         );
+    }
+
+    private static Long parseId(String id) {
+        try {
+            return Long.parseLong(id);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
