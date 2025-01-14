@@ -1,4 +1,4 @@
-package com.mypay.bankaccount.application.service.handler;
+package com.mypay.bankaccount.application.service.handler.validation;
 
 import com.mypay.bankaccount.application.port.in.RegisterBankAccountCommand;
 import com.mypay.bankaccountinformation.port.out.BankAccountInformationRequest;
