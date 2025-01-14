@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 public class RequestFirmbankingCommand
         extends SelfValidating<RequestFirmbankingCommand> {
 
+    @NotBlank private final String membershipId;
     @NotBlank private final String fromBankName;
     @NotBlank private final String fromBankAccountNumber;
     @NotBlank private final String toBankName;
@@ -20,12 +21,14 @@ public class RequestFirmbankingCommand
     @NotNull private final Integer moneyAmount;
 
     public RequestFirmbankingCommand(
+            String membershipId,
             String fromBankName,
             String fromBankAccountNumber,
             String toBankName,
             String toBankAccountNumber,
             Integer moneyAmount
     ) {
+        this.membershipId = membershipId;
         this.fromBankName = fromBankName;
         this.fromBankAccountNumber = fromBankAccountNumber;
         this.toBankName = toBankName;

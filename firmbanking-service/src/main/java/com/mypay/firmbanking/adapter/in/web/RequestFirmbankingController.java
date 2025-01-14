@@ -20,20 +20,19 @@ public class RequestFirmbankingController {
 
     private final RequestFirmbankingUseCase requestFirmbankingUseCase;
 
-    @PostMapping(path = "/banking/account/register")
-    ResponseEntity<RequestFirmbankingResponse> registerBankAccount(
+    @PostMapping(path = "/banking/firmbanking/request")
+    ResponseEntity<RequestFirmbankingResponse> requestFirmbanking(
             @RequestBody RequestFirmbankingRequest request
     ) {
-
         RequestFirmbankingCommand command = mapToCommand(request);
         FirmbankingRequest requested = requestFirmbankingUseCase.requestFirmbanking(command);
         RequestFirmbankingResponse response = mapToResponse(requested);
         return ResponseEntity.ok(response);
     }
 
-
     private RequestFirmbankingCommand mapToCommand(RequestFirmbankingRequest request) {
         return new RequestFirmbankingCommand(
+                request.membershipId(),
                 request.fromBankName(),
                 request.fromBankAccountNumber(),
                 request.toBankName(),
@@ -45,10 +44,11 @@ public class RequestFirmbankingController {
     private RequestFirmbankingResponse mapToResponse(FirmbankingRequest request) {
         return new RequestFirmbankingResponse(
                 request.getId(),
+                request.getMembershipId(),
                 request.getFromBankName(),
-                request.getFromBankAccount(),
+                request.getFromBankAccountNumber(),
                 request.getToBankName(),
-                request.getToBankAccount(),
+                request.getToBankAccountNumber(),
                 request.getMoneyAmount(),
                 request.getFirmbankingStatus(),
                 request.getUuid()
@@ -56,6 +56,7 @@ public class RequestFirmbankingController {
     }
 
     public record RequestFirmbankingRequest(
+            String membershipId,
             String fromBankName,
             String fromBankAccountNumber,
             String toBankName,
@@ -65,6 +66,7 @@ public class RequestFirmbankingController {
 
     public record RequestFirmbankingResponse(
             String id,
+            String membershipId,
             String fromBankName,
             String fromBankAccountNumber,
             String toBankName,
@@ -73,6 +75,4 @@ public class RequestFirmbankingController {
             FirmbankingStatus firmbankingStatus,
             UUID uuid
     ) {}
-
-
 }

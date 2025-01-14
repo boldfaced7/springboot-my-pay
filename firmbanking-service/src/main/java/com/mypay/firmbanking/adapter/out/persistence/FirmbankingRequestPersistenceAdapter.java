@@ -13,16 +13,16 @@ public class FirmbankingRequestPersistenceAdapter
     private final FirmbankingRequestJpaRepository firmbankingRequestJpaRepository;
 
     @Override
-    public FirmbankingRequest createFirmbankingRequest(FirmbankingRequest request) {
+    public FirmbankingRequest saveFirmbankingRequest(FirmbankingRequest request) {
         FirmbankingRequestJpaEntity source = FirmbankingRequestMapper.mapToJpaEntity(request);
         FirmbankingRequestJpaEntity saved = firmbankingRequestJpaRepository.save(source);
-        return FirmbankingRequestMapper.mapToDomain(saved, request.getUuid());
+        return FirmbankingRequestMapper.mapToDomain(saved);
     }
 
     @Override
     public FirmbankingRequest updateFirmbankingRequest(FirmbankingRequest request) {
-        FirmbankingRequestJpaEntity source = FirmbankingRequestMapper.mapToJpaEntity(request, request.getId());
+        FirmbankingRequestJpaEntity source = FirmbankingRequestMapper.mapToJpaEntity(request);
         FirmbankingRequestJpaEntity updated = firmbankingRequestJpaRepository.save(source);
-        return FirmbankingRequestMapper.mapToDomain(updated, request.getUuid());
+        return FirmbankingRequestMapper.mapToDomain(updated);
     }
 }
