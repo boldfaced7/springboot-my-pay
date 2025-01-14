@@ -8,3 +8,4 @@ include 'firmbanking-service'
 
 include 'bank-account-information-client'
 include 'external-firmbanking-client'
+include 'membership-messaging'
