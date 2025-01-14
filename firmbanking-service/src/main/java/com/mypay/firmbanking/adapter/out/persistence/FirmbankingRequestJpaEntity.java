@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "request_firmbanking")
@@ -18,23 +20,32 @@ public class FirmbankingRequestJpaEntity {
 
     @Id @GeneratedValue
     private Long id;
+    private String membershipId;
     private String fromBankName;
-    private  String fromBankAccountNumber;
-    private  String toBankName;
-    private  String toBankAccountNumber;
+    private String fromBankAccountNumber;
+    private String toBankName;
+    private String toBankAccountNumber;
     private int moneyAmount;
     private FirmbankingStatus firmbankingStatus;
     private String uuid;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 
     public FirmbankingRequestJpaEntity(
+            String membershipId,
             String fromBankName,
             String fromBankAccountNumber,
             String toBankName,
             String toBankAccountNumber,
             int moneyAmount,
             FirmbankingStatus firmbankingStatus,
-            String uuid
+            String uuid,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            LocalDateTime deletedAt
     ) {
+        this.membershipId = membershipId;
         this.fromBankName = fromBankName;
         this.fromBankAccountNumber = fromBankAccountNumber;
         this.toBankName = toBankName;
@@ -42,12 +53,16 @@ public class FirmbankingRequestJpaEntity {
         this.moneyAmount = moneyAmount;
         this.firmbankingStatus = firmbankingStatus;
         this.uuid = uuid;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
 
     @Override
     public String toString() {
         return "FirmbankingRequestJpaEntity{" +
                 "id=" + id +
+                ", membershipId='" + membershipId + '\'' +
                 ", fromBankName='" + fromBankName + '\'' +
                 ", fromBankAccountNumber='" + fromBankAccountNumber + '\'' +
                 ", toBankName='" + toBankName + '\'' +
@@ -55,6 +70,9 @@ public class FirmbankingRequestJpaEntity {
                 ", moneyAmount=" + moneyAmount +
                 ", firmbankingStatus=" + firmbankingStatus +
                 ", uuid='" + uuid + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", deletedAt=" + deletedAt +
                 '}';
     }
 }
