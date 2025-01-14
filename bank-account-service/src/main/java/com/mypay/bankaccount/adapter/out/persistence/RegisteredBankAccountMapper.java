@@ -5,30 +5,45 @@ import com.mypay.bankaccount.domain.RegisteredBankAccount;
 public class RegisteredBankAccountMapper {
 
     public static RegisteredBankAccount mapToDomain(
-            RegisteredBankAccountJpaEntity registeredBankAccount
+            RegisteredBankAccountJpaEntity jpaEntity
     ) {
         return RegisteredBankAccount.generate(
                 new RegisteredBankAccount.Id(
-                        registeredBankAccount.getId()+""),
+                        jpaEntity.getId()+""),
                 new RegisteredBankAccount.MembershipId(
-                        registeredBankAccount.getMembershipId()),
+                        jpaEntity.getMembershipId()),
                 new RegisteredBankAccount.BankName(
-                        registeredBankAccount.getBankName()),
+                        jpaEntity.getBankName()),
                 new RegisteredBankAccount.BankAccountNumber(
-                        registeredBankAccount.getBankAccountNumber()),
+                        jpaEntity.getBankAccountNumber()),
                 new RegisteredBankAccount.ValidLinkedStatus(
-                        registeredBankAccount.isValidLinkedStatus())
+                        jpaEntity.isValidLinkedStatus()),
+                jpaEntity.getCreatedAt(),
+                jpaEntity.getUpdatedAt(),
+                jpaEntity.getDeletedAt()
         );
     }
 
     public static RegisteredBankAccountJpaEntity mapToJpaEntity(
-            RegisteredBankAccount registeredBankAccount
+            RegisteredBankAccount domainEntity
     ) {
         return new RegisteredBankAccountJpaEntity(
-                registeredBankAccount.getMembershipId(),
-                registeredBankAccount.getBankName(),
-                registeredBankAccount.getBankAccountNumber(),
-                registeredBankAccount.isValidLinkedStatus()
+                parseId(domainEntity.getId()),
+                domainEntity.getMembershipId(),
+                domainEntity.getBankName(),
+                domainEntity.getBankAccountNumber(),
+                domainEntity.isValidLinkedStatus(),
+                domainEntity.getCreatedAt(),
+                domainEntity.getUpdatedAt(),
+                domainEntity.getDeletedAt()
         );
+    }
+
+    private static Long parseId(String id) {
+        try {
+            return Long.parseLong(id);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
