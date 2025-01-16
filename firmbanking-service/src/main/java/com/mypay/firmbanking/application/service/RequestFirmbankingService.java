@@ -7,7 +7,8 @@ import com.mypay.firmbanking.application.port.in.RequestFirmbankingCommand;
 import com.mypay.firmbanking.application.port.in.RequestFirmbankingUseCase;
 import com.mypay.externalfirmbanking.port.out.ExternalFirmbankingRequest;
 import com.mypay.externalfirmbanking.port.out.RequestExternalFirmbankingPort;
-import com.mypay.firmbanking.application.port.out.RequestFirmbankingPort;
+import com.mypay.firmbanking.application.port.out.RegisterRequestFirmbankingPort;
+import com.mypay.firmbanking.application.port.out.UpdateRequestFirmbankingPort;
 import com.mypay.firmbanking.domain.FirmbankingRequest;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequestFirmbankingService implements RequestFirmbankingUseCase {
 
-    private final List<ValidationHandler<RequestFirmbankingCommand>> validationHandlers;
-    private final RequestFirmbankingPort requestFirmbankingPort;
+    private final RegisterRequestFirmbankingPort registerRequestFirmbankingPort;
+    private final UpdateRequestFirmbankingPort updateRequestFirmbankingPort;
     private final RequestExternalFirmbankingPort requestExternalFirmbankingPort;
+    private final List<ValidationHandler<RequestFirmbankingCommand>> validationHandlers;
 
     @PostConstruct
     private void init() {
@@ -37,7 +39,7 @@ public class RequestFirmbankingService implements RequestFirmbankingUseCase {
         FirmbankingRequest pending = savePendingRequest(command);
         FirmbankingRequest done = requestExternalFirmbanking(pending);
 
-        return requestFirmbankingPort.updateFirmbankingRequest(done);
+        return updateRequestFirmbankingPort.updateFirmbankingRequest(done);
     }
 
     private FirmbankingRequest savePendingRequest(RequestFirmbankingCommand command) {
@@ -50,7 +52,7 @@ public class RequestFirmbankingService implements RequestFirmbankingUseCase {
                 new FirmbankingRequest.MoneyAmount(command.getMoneyAmount()),
                 FirmbankingStatus.IN_PROGRESS
         );
-        return requestFirmbankingPort.saveFirmbankingRequest(source);
+        return registerRequestFirmbankingPort.saveFirmbankingRequest(source);
     }
 
     private FirmbankingRequest requestExternalFirmbanking(FirmbankingRequest source) {
