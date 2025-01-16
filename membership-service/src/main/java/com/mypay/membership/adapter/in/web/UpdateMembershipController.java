@@ -18,7 +18,7 @@ public class UpdateMembershipController {
     private final UpdateMembershipUseCase updateMembershipUseCase;
 
     @PutMapping("/membership/update")
-    ResponseEntity<UpdateMembershipResponse> modifyMembership(
+    ResponseEntity<UpdateMembershipResponse> updateMembership(
             @RequestBody UpdateMembershipRequest request
     ) {
         UpdateMembershipCommand command = mapToCommand(request);

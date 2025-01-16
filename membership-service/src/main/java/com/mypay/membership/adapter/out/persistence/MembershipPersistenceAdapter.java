@@ -17,7 +17,7 @@ public class MembershipPersistenceAdapter
     private final MembershipJpaRepository membershipJpaRepository;
 
     @Override
-    public Membership createMembership(Membership membership) {
+    public Membership saveMembership(Membership membership) {
         return membership
                 .map(MembershipMapper::mapToJpaEntity)
                 .map(membershipJpaRepository::save)
@@ -26,7 +26,7 @@ public class MembershipPersistenceAdapter
 
     @Override
     public Optional<Membership> findMembershipById(Membership.Id id) {
-        return membershipJpaRepository.findById(Long.parseLong(id.value()))
+        return membershipJpaRepository.findByMembershipId(Long.parseLong(id.value()))
                 .map(MembershipMapper::mapToDomain);
     }
 

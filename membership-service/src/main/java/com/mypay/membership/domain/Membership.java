@@ -22,27 +22,6 @@ public class Membership {
     private LocalDateTime deletedAt;
 
     public static Membership generate(
-            Id id,
-            Name name,
-            Email email,
-            Address address,
-            Valid valid,
-            Corp corp
-    ) {
-        return new Membership(
-                id.value(),
-                name.value(),
-                email.value(),
-                address.value(),
-                valid.value(),
-                corp.value(),
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                null
-        );
-    }
-
-    public static Membership generate(
             Name name,
             Email email,
             Address address,
@@ -59,6 +38,30 @@ public class Membership {
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null
+        );
+    }
+
+    public static Membership generate(
+            Id id,
+            Name name,
+            Email email,
+            Address address,
+            Valid valid,
+            Corp corp,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            LocalDateTime deletedAt
+    ) {
+        return new Membership(
+                id.value(),
+                name.value(),
+                email.value(),
+                address.value(),
+                valid.value(),
+                corp.value(),
+                createdAt,
+                updatedAt,
+                deletedAt
         );
     }
 

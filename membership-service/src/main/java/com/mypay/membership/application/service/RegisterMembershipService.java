@@ -18,12 +18,11 @@ public class RegisterMembershipService implements RegisterMembershipUseCase {
     @Override
     public Membership registerMembership(RegisterMembershipCommand command) {
         Membership membership = mapToDomain(command);
-        return registerMembershipPort.createMembership(membership);
+        return registerMembershipPort.saveMembership(membership);
     }
 
     private Membership mapToDomain(RegisterMembershipCommand command) {
         return Membership.generate(
-                new Membership.Id(""),
                 new Membership.Name(command.getName()),
                 new Membership.Email(command.getEmail()),
                 new Membership.Address(command.getAddress()),

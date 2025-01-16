@@ -2,6 +2,7 @@ package com.mypay.membership.application.service;
 
 import com.mypay.membership.application.port.in.UpdateMembershipCommand;
 import com.mypay.membership.application.port.in.UpdateMembershipUseCase;
+import com.mypay.membership.application.port.out.GetMembershipPort;
 import com.mypay.membership.application.port.out.UpdateMembershipPort;
 import com.mypay.common.UseCase;
 import com.mypay.membership.domain.Membership;
@@ -14,12 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UpdateMembershipService implements UpdateMembershipUseCase {
 
     private final UpdateMembershipPort updateMembershipPort;
+    private final GetMembershipPort getMembershipPort;
 
     @Override
     public Membership updateMembership(UpdateMembershipCommand command) {
         Membership.Id id = new Membership.Id(command.getMembershipId());
 
-        return updateMembershipPort.findMembershipById(id)
+        return getMembershipPort.findMembershipById(id)
                 .map(membership -> membership.update(
                         new Membership.Name(command.getName()),
                         new Membership.Email(command.getEmail()),

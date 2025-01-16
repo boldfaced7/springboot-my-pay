@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,38 +16,20 @@ import java.util.function.Function;
 @Table(name = "membership")
 @Data
 @NoArgsConstructor
-class MembershipJpaEntity {
+@AllArgsConstructor
+public class MembershipJpaEntity {
 
     @Id
     @GeneratedValue
     private Long membershipId;
     private String name;
-    private String address;
     private String email;
+    private String address;
     private boolean valid;
     private boolean corp;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-
-
-    public MembershipJpaEntity(
-            Long membershipId,
-            String name,
-            String address,
-            String email,
-            boolean valid,
-            boolean corp
-    ) {
-        this.membershipId = membershipId;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.valid = valid;
-        this.corp = corp;
-        LocalDateTime.now();
-        LocalDateTime.now();
-    }
 
     public <T> T map(Function<? super MembershipJpaEntity, ? extends T> mapper) {
         Objects.requireNonNull(mapper);
