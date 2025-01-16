@@ -1,6 +1,11 @@
 package com.mypay.membership.adapter.out.persistence;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.Repository;
+
+import java.util.Optional;
 
 public interface MembershipJpaRepository
-    extends JpaRepository<MembershipJpaEntity, Long> {}
+    extends Repository<MembershipJpaEntity, Long> {
+    MembershipJpaEntity save(MembershipJpaEntity membershipJpaEntity);
+    Optional<MembershipJpaEntity> findByMembershipId(Long id);
+}
