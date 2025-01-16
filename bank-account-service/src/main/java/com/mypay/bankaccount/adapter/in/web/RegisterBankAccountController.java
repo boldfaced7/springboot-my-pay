@@ -5,6 +5,7 @@ import com.mypay.bankaccount.application.port.in.RegisterBankAccountUseCase;
 import com.mypay.bankaccount.domain.RegisteredBankAccount;
 import com.mypay.common.WebAdapter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class RegisterBankAccountController {
         RegisteredBankAccount registered = registerBankAccountUseCase.registerBankAccount(command);
         RegisterBankAccountResponse response = mapToResponse(registered);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
@@ -61,6 +62,4 @@ public class RegisterBankAccountController {
             String bankAccountNumber,
             boolean valid
     ) {}
-
-
 }

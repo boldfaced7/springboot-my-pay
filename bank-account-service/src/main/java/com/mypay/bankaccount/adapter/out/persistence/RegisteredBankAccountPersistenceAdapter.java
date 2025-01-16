@@ -16,17 +16,17 @@ public class RegisteredBankAccountPersistenceAdapter
     private final RegisteredBankAccountJpaRepository bankAccountRepository;
 
     @Override
-    public RegisteredBankAccount createRegisteredBankAccount(
+    public RegisteredBankAccount save(
             RegisteredBankAccount registeredBankAccount
     ) {
-        RegisteredBankAccountJpaEntity source
-                = RegisteredBankAccountMapper.mapToJpaEntity(registeredBankAccount);
-        RegisteredBankAccountJpaEntity saved = bankAccountRepository.save(source);
-        return RegisteredBankAccountMapper.mapToDomain(saved);
+        return registeredBankAccount
+                .map(RegisteredBankAccountMapper::mapToJpaEntity)
+                .map(bankAccountRepository::save)
+                .map(RegisteredBankAccountMapper::mapToDomain);
     }
 
     @Override
-    public Optional<RegisteredBankAccount> findRegisteredBankAccountByMembershipId(
+    public Optional<RegisteredBankAccount> findByMembershipId(
             RegisteredBankAccount.MembershipId membershipId
     ) {
         return bankAccountRepository.findByMembershipId(membershipId.value())

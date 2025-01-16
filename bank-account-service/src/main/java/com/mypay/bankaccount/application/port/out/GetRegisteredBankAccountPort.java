@@ -5,7 +5,7 @@ import com.mypay.bankaccount.domain.RegisteredBankAccount;
 import java.util.Optional;
 
 public interface GetRegisteredBankAccountPort {
-    Optional<RegisteredBankAccount> findRegisteredBankAccountByMembershipId(
+    Optional<RegisteredBankAccount> findByMembershipId(
             RegisteredBankAccount.MembershipId membershipId
     );
 }

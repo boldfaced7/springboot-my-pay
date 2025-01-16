@@ -30,7 +30,7 @@ public class RegisterBankAccountService implements RegisterBankAccountUseCase {
     public RegisteredBankAccount registerBankAccount(RegisterBankAccountCommand command) {
         validationHandlers.forEach(handler -> handler.validate(command));
         RegisteredBankAccount source = mapToDomain(command);
-        return registerBankAccountPort.createRegisteredBankAccount(source);
+        return registerBankAccountPort.save(source);
     }
 
     private RegisteredBankAccount mapToDomain(RegisterBankAccountCommand command) {
